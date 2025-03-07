@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "PlatyPdfs.App (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "PlatyPdfs.App (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

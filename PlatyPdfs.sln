@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35818.85 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatyPdfs.App", "src\PlatyPdfs.App\PlatyPdfs.App.csproj", "{04EE5FA5-C376-4351-01DF-64467A7AF5E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatyPdfs.App.Core", "src\PlatyPdfs.App.Core\PlatyPdfs.App.Core.csproj", "{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|arm64 = Debug|arm64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|arm64 = Release|arm64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Debug|arm64.ActiveCfg = Debug|arm64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Debug|arm64.Build.0 = Debug|arm64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Debug|arm64.Deploy.0 = Debug|arm64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Debug|x64.ActiveCfg = Debug|x64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Debug|x64.Build.0 = Debug|x64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Debug|x64.Deploy.0 = Debug|x64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Debug|x86.ActiveCfg = Debug|x86
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Debug|x86.Build.0 = Debug|x86
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Debug|x86.Deploy.0 = Debug|x86
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Release|arm64.ActiveCfg = Release|arm64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Release|arm64.Build.0 = Release|arm64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Release|arm64.Deploy.0 = Release|arm64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Release|x64.ActiveCfg = Release|x64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Release|x64.Build.0 = Release|x64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Release|x64.Deploy.0 = Release|x64
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Release|x86.ActiveCfg = Release|x86
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Release|x86.Build.0 = Release|x86
+		{04EE5FA5-C376-4351-01DF-64467A7AF5E6}.Release|x86.Deploy.0 = Release|x86
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Debug|arm64.ActiveCfg = Debug|arm64
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Debug|arm64.Build.0 = Debug|arm64
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Debug|x64.ActiveCfg = Debug|x64
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Debug|x64.Build.0 = Debug|x64
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Debug|x86.ActiveCfg = Debug|x86
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Debug|x86.Build.0 = Debug|x86
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Release|arm64.ActiveCfg = Release|arm64
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Release|arm64.Build.0 = Release|arm64
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Release|x64.ActiveCfg = Release|x64
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Release|x64.Build.0 = Release|x64
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Release|x86.ActiveCfg = Release|x86
+		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1542D88-54F3-4E47-AC98-14CDB6EAD649}
+	EndGlobalSection
+EndGlobal
