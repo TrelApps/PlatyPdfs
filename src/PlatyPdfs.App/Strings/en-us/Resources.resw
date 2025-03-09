@@ -134,4 +134,29 @@
     <value>Settings</value>
     <comment>Page title for SettingsPage</comment>
   </data>
+  <data name="ShellMenuItem_Views_PdfFilesData.Text" xml:space="preserve">
+    <value>PdfFilesData</value>
+  </data>
+  <data name="PdfFilesData_Title.Text" xml:space="preserve">
+    <value>PdfFilesData</value>
+    <comment>Page title for PdfFilesDataPage</comment>
+  </data>
+  <data name="KiloByteSymbol" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="MegaByteSymbol" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="GigaByteSymbol" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="TeraByteSymbol" xml:space="preserve">
+    <value>TB</value>
+  </data>
+  <data name="PetaByteSymbol" xml:space="preserve">
+    <value>PB</value>
+  </data>
+  <data name="ByteSymbol" xml:space="preserve">
+    <value>B</value>
+  </data>
 </root>
