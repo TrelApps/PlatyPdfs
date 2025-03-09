@@ -20,6 +20,11 @@ public partial class ShellViewModel : ObservableRecipient
         get;
     }
 
+    public ICommand MenuViewsPdfFilesDataCommand
+    {
+        get;
+    }
+
     public ICommand MenuSettingsCommand
     {
         get;
@@ -56,6 +61,7 @@ public partial class ShellViewModel : ObservableRecipient
         NavigationService.Navigated += OnNavigated;
 
         MenuFileExitCommand = new RelayCommand(OnMenuFileExit);
+        MenuViewsPdfFilesDataCommand = new RelayCommand(OnMenuViewsPdfFilesData);
         MenuSettingsCommand = new RelayCommand(OnMenuSettings);
         MenuViewsListDetailsCommand = new RelayCommand(OnMenuViewsListDetails);
         MenuViewsContentGridCommand = new RelayCommand(OnMenuViewsContentGrid);
@@ -66,6 +72,8 @@ public partial class ShellViewModel : ObservableRecipient
     private void OnNavigated(object sender, NavigationEventArgs e) => IsBackEnabled = NavigationService.CanGoBack;
 
     private void OnMenuFileExit() => Application.Current.Exit();
+
+    private void OnMenuViewsPdfFilesData() => NavigationService.NavigateTo(typeof(PdfFilesDataViewModel).FullName!);
 
     private void OnMenuSettings() => NavigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
 
