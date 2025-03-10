@@ -20,6 +20,12 @@ public class PdfFile
         set;
     }
 
+    public string DirectoryPath
+    {
+        get;
+        set;
+    }
+
     public string FileSize
     {
         get;
