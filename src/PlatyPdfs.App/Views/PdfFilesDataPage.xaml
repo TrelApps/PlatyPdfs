@@ -27,15 +27,25 @@
                 Margin="0,0,0,10"
                 Click="PickAFileButton_Click"
                 Content="Open a file" />
+            <Button
+                x:Name="MergePdfsButton"
+                Margin="0,0,0,10"
+                Click="MergePdfsButton_Click"
+                Content="Merge Pdfs"
+                IsEnabled="{x:Bind ViewModel.IsMergeEnabled, Mode=TwoWay}" />
         </StackPanel>
         <controls:DataGrid
+            Name="MainGrid"
             Grid.Row="2"
             AutoGenerateColumns="False"
+            CanDrag="True"
             GridLinesVisibility="Horizontal"
-            ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}">
+            ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+            SelectionChanged="MainGrid_SelectionChanged">
             <controls:DataGrid.Resources>
                 <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
             </controls:DataGrid.Resources>
+
             <controls:DataGrid.Columns>
                 <!--  TODO: Replace column definitions to match real data. Consider adding Header values to Resources.resw.  -->
                 <controls:DataGridTextColumn Binding="{Binding OrderNumber}" Header="Number" />

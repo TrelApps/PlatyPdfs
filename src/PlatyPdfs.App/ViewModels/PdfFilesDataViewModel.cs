@@ -1,7 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-
 using CommunityToolkit.Mvvm.ComponentModel;
-
 using PlatyPdfs.App.Contracts.ViewModels;
 using PlatyPdfs.App.Core.Contracts.Services;
 using PlatyPdfs.App.Core.Models;
@@ -12,7 +10,12 @@ public partial class PdfFilesDataViewModel : ObservableRecipient, INavigationAwa
 {
     private readonly IPdfFileService _pdfFileService;
 
-    public ObservableCollection<PdfFile> Source { get; } = new ObservableCollection<PdfFile>();
+    public ObservableCollection<PdfFile> Source { get; } = [];
+
+    public List<PdfFile> SelectedFiles = [];
+
+    [ObservableProperty]
+    public bool _isMergeEnabled;
 
     public PdfFilesDataViewModel(IPdfFileService pdfFileService)
     {
@@ -35,4 +38,15 @@ public partial class PdfFilesDataViewModel : ObservableRecipient, INavigationAwa
     public void OnNavigatedFrom()
     {
     }
+
+    //[RelayCommand(CanExecute = nameof(CanMergePdf))]
+    //private void MergePdf()
+    //{
+    //}
+
+    //private bool CanMergePdf()
+    //{
+    //    return SelectedFiles.Count > 1;
+    //}
+
 }
