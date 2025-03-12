@@ -1,10 +1,10 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 
 using PlatyPdfs.App.Contracts.Services;
 using PlatyPdfs.App.Helpers;
+using PlatyPdfs.App.Pages.AboutPages;
 using PlatyPdfs.App.ViewModels;
 
 using Windows.System;
@@ -97,5 +97,32 @@ public sealed partial class ShellPage : Page
     private void ShellMenuBarSettingsButton_PointerExited(object sender, PointerRoutedEventArgs e)
     {
         AnimatedIcon.SetState((UIElement)sender, "Normal");
+    }
+
+    private async void AboutNavButton_Click(object sender, RoutedEventArgs e)
+    {
+        ContentDialog? AboutDialog = new();
+        AboutPlatyPdfs AboutPage = new();
+        AboutDialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+        AboutDialog.XamlRoot = XamlRoot;
+        AboutDialog.Resources["ContentDialogMaxWidth"] = 1200;
+        AboutDialog.Resources["ContentDialogMaxHeight"] = 1000;
+        AboutDialog.Content = AboutPage;
+        AboutDialog.PrimaryButtonText = "Close";
+        AboutPage.Close += (s, e) => { AboutDialog.Hide(); };
+
+        //await MainApp.Instance.MainWindow.ShowDialogAsync(AboutDialog);
+
+
+        AboutDialog.RequestedTheme = (ElementTheme)Application.Current.RequestedTheme;
+        await AboutDialog.ShowAsync();
+
+        AboutDialog.Content = null;
+        //foreach (NavButton button in MainApp.Instance.MainWindow.NavButtonList)
+        //{
+        //    button.ToggleButton.IsChecked = button == PageButtonReference[CurrentPage ?? DiscoverPage];
+        //}
+
+        AboutDialog = null;
     }
 }

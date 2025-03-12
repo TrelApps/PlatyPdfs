@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.WinUI.UI.Controls;
-
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 
 using PlatyPdfs.App.ViewModels;
 
@@ -19,11 +17,11 @@ public sealed partial class ListDetailsPage : Page
         InitializeComponent();
     }
 
-    private void OnViewStateChanged(object sender, ListDetailsViewState e)
-    {
-        if (e == ListDetailsViewState.Both)
-        {
-            ViewModel.EnsureItemSelected();
-        }
-    }
+    //private void OnViewStateChanged(object sender, ListDetailsViewState e)
+    //{
+    //    if (e == ListDetailsViewState.Both)
+    //    {
+    //        ViewModel.EnsureItemSelected();
+    //    }
+    //}
 }
