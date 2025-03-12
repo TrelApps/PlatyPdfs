@@ -57,6 +57,15 @@
                   </com:ExeServer>
               </com:ComServer>
           </com:Extension>
+          <uap:Extension Category="windows.fileTypeAssociation">
+              <uap:FileTypeAssociation Name="addtoplatypdfs">
+                  <uap:SupportedFileTypes>
+                      <uap:FileType>.pdf</uap:FileType>
+                  </uap:SupportedFileTypes>
+                  <uap:DisplayName>Add to PlatyPdfs</uap:DisplayName>
+                  <uap:Logo>Assets\StoreLogo.png</uap:Logo>
+              </uap:FileTypeAssociation>
+          </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
