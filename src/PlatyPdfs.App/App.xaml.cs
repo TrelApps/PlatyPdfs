@@ -1,16 +1,19 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Text.RegularExpressions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-
+using Microsoft.Windows.AppLifecycle;
+using Microsoft.Windows.AppNotifications;
 using PlatyPdfs.App.Activation;
 using PlatyPdfs.App.Contracts.Services;
 using PlatyPdfs.App.Core.Contracts.Services;
 using PlatyPdfs.App.Core.Services;
-using PlatyPdfs.App.Helpers;
 using PlatyPdfs.App.Models;
 using PlatyPdfs.App.Services;
 using PlatyPdfs.App.ViewModels;
 using PlatyPdfs.App.Views;
+using Windows.ApplicationModel.Activation;
+using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 
 namespace PlatyPdfs.App;
 
@@ -38,7 +41,7 @@ public partial class App : Application
         return service;
     }
 
-    public static WindowEx MainWindow { get; } = new MainWindow();
+    public static MainWindow MainWindow { get; } = new MainWindow();
 
     public static UIElement? AppTitlebar
     {
@@ -95,6 +98,17 @@ public partial class App : Application
         Build();
 
         UnhandledException += App_UnhandledException;
+        MainWindow.Closed += (_, _) => DisposeAndQuit(0);
+
+        nint hWnd = MainWindow.GetWindowHandle();
+        var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
+        var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
+
+        if (appWindow is not null)
+        {
+            appWindow.Closing += MainWindow.HandleClosingEvent;
+        }
+        RegisterNotificationService();
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -106,7 +120,74 @@ public partial class App : Application
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
-
         await App.GetService<IActivationService>().ActivateAsync(args);
+    }
+
+
+    public async Task ShowMainWindowFromRedirectAsync(AppActivationArguments rawArgs)
+    {
+        while (MainWindow is null)
+            await Task.Delay(100);
+
+        ExtendedActivationKind kind = rawArgs.Kind;
+        if (kind is ExtendedActivationKind.Launch)
+        {
+            if (rawArgs.Data is ILaunchActivatedEventArgs launchArguments)
+            {
+                // If the app redirection event comes from a launch, extract
+                // the CLI arguments and redirect them to the ParameterProcessor
+                foreach (Match argument in Regex.Matches(launchArguments.Arguments,
+                             "([^ \"']+|\"[^\"]+\"|'[^']+')"))
+                {
+                    MainWindow.ParametersToProcess.Enqueue(argument.Value);
+                }
+            }
+            else
+            {
+                //Logger.Error("REDIRECTOR ACTIVATOR: args.Data was null when casted to ILaunchActivatedEventArgs");
+            }
+        }
+        else
+        {
+            //Logger.Warn("REDIRECTOR ACTIVATOR: args.Kind is not Launch but rather " + kind);
+        }
+
+        MainWindow.DispatcherQueue.TryEnqueue(MainWindow.Activate);
+    }
+
+    /// <summary>
+    /// Register the notification activation event
+    /// </summary>
+    private void RegisterNotificationService()
+    {
+        try
+        {
+            AppNotificationManager.Default.NotificationInvoked += (_, args) =>
+            {
+                MainWindow.DispatcherQueue.TryEnqueue(() =>
+                {
+                    MainWindow.HandleNotificationActivation(args);
+                });
+            };
+            AppNotificationManager.Default.Register();
+        }
+        catch (Exception)
+        {
+            //Logger.Error("Could not register notification event");
+            //Logger.Error(ex);
+        }
+    }
+
+
+    public void DisposeAndQuit(int outputCode = 0)
+    {
+        //Logger.Warn("Quitting UniGetUI");
+        //DWMThreadHelper.ChangeState_DWM(false);
+        //DWMThreadHelper.ChangeState_XAML(false);
+        MainWindow?.Close();
+        //BackgroundApi?.Stop();
+        Exit();
+        // await Task.Delay(100);
+        // Environment.Exit(outputCode);
     }
 }
