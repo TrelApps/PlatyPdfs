@@ -35,7 +35,7 @@
                 IsEnabled="{x:Bind ViewModel.IsMergeEnabled, Mode=TwoWay}" />
         </StackPanel>
         <controls:DataGrid
-            Name="MainGrid"
+            x:Name="MainGrid"
             Grid.Row="2"
             AutoGenerateColumns="False"
             CanDrag="True"

@@ -32,6 +32,9 @@ public sealed partial class ShellPage : Page
         App.MainWindow.SetTitleBar(AppTitleBar);
         App.MainWindow.Activated += MainWindow_Activated;
         AppTitleBarText.Text = "AppDisplayName".GetLocalized();
+
+
+        _ = AutoUpdater.UpdateCheckLoopAsync(App.MainWindow, UpdatesBanner);
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)

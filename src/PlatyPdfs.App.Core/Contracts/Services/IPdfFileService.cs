@@ -1,4 +1,6 @@
-﻿using PlatyPdfs.App.Core.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using PlatyPdfs.App.Core.Models;
 
 namespace PlatyPdfs.App.Core.Contracts.Services;
 

@@ -6,7 +6,6 @@ using PlatyPdfs.App.Extensions;
 using PlatyPdfs.App.ViewModels;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using Windows.Storage.Provider;
 
 namespace PlatyPdfs.App.Views;
 
@@ -102,20 +101,20 @@ public sealed partial class PdfFilesDataPage : Page
         if (file != null)
         {
             // Prevent updates to the remote version of the file until we finish making changes and call CompleteUpdatesAsync.
-            CachedFileManager.DeferUpdates(file);
+            //CachedFileManager.DeferUpdates(file);
             // write to file
             await FileIO.WriteBytesAsync(file, bytes);
             // Let Windows know that we're finished changing the file so the other app can update the remote version of the file.
             // Completing updates may require Windows to ask for user input.
-            FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-            if (status == FileUpdateStatus.Complete)
-            {
-                //   OutputTextBlock.Text = "File " + file.Name + " was saved.";
-            }
-            else
-            {
-                //  OutputTextBlock.Text = "File " + file.Name + " couldn't be saved.";
-            }
+            //FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
+            //if (status == FileUpdateStatus.Complete)
+            //{
+            //   OutputTextBlock.Text = "File " + file.Name + " was saved.";
+            //}
+            //else
+            //{
+            //  OutputTextBlock.Text = "File " + file.Name + " couldn't be saved.";
+            //}
         }
         else
         {
