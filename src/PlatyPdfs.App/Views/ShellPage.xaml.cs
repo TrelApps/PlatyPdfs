@@ -18,6 +18,14 @@ public sealed partial class ShellPage : Page
         get;
     }
 
+    public Microsoft.UI.Xaml.Controls.NavigationView NavigationView
+    {
+        get
+        {
+            return NavigationViewControl;
+        }
+    }
+
     public ShellPage(ShellViewModel viewModel)
     {
         ViewModel = viewModel;
@@ -44,8 +52,8 @@ public sealed partial class ShellPage : Page
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
 
-        ShellMenuBarSettingsButton.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(ShellMenuBarSettingsButton_PointerPressed), true);
-        ShellMenuBarSettingsButton.AddHandler(UIElement.PointerReleasedEvent, new PointerEventHandler(ShellMenuBarSettingsButton_PointerReleased), true);
+        //ShellMenuBarSettingsButton.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(ShellMenuBarSettingsButton_PointerPressed), true);
+        //ShellMenuBarSettingsButton.AddHandler(UIElement.PointerReleasedEvent, new PointerEventHandler(ShellMenuBarSettingsButton_PointerReleased), true);
     }
 
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
@@ -55,8 +63,8 @@ public sealed partial class ShellPage : Page
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
-        ShellMenuBarSettingsButton.RemoveHandler(UIElement.PointerPressedEvent, (PointerEventHandler)ShellMenuBarSettingsButton_PointerPressed);
-        ShellMenuBarSettingsButton.RemoveHandler(UIElement.PointerReleasedEvent, (PointerEventHandler)ShellMenuBarSettingsButton_PointerReleased);
+        //ShellMenuBarSettingsButton.RemoveHandler(UIElement.PointerPressedEvent, (PointerEventHandler)ShellMenuBarSettingsButton_PointerPressed);
+        //ShellMenuBarSettingsButton.RemoveHandler(UIElement.PointerReleasedEvent, (PointerEventHandler)ShellMenuBarSettingsButton_PointerReleased);
     }
 
     private static KeyboardAccelerator BuildKeyboardAccelerator(VirtualKey key, VirtualKeyModifiers? modifiers = null)
@@ -82,25 +90,25 @@ public sealed partial class ShellPage : Page
         args.Handled = result;
     }
 
-    private void ShellMenuBarSettingsButton_PointerEntered(object sender, PointerRoutedEventArgs e)
-    {
-        AnimatedIcon.SetState((UIElement)sender, "PointerOver");
-    }
+    //private void ShellMenuBarSettingsButton_PointerEntered(object sender, PointerRoutedEventArgs e)
+    //{
+    //    AnimatedIcon.SetState((UIElement)sender, "PointerOver");
+    //}
 
-    private void ShellMenuBarSettingsButton_PointerPressed(object sender, PointerRoutedEventArgs e)
-    {
-        AnimatedIcon.SetState((UIElement)sender, "Pressed");
-    }
+    //private void ShellMenuBarSettingsButton_PointerPressed(object sender, PointerRoutedEventArgs e)
+    //{
+    //    AnimatedIcon.SetState((UIElement)sender, "Pressed");
+    //}
 
-    private void ShellMenuBarSettingsButton_PointerReleased(object sender, PointerRoutedEventArgs e)
-    {
-        AnimatedIcon.SetState((UIElement)sender, "Normal");
-    }
+    //private void ShellMenuBarSettingsButton_PointerReleased(object sender, PointerRoutedEventArgs e)
+    //{
+    //    AnimatedIcon.SetState((UIElement)sender, "Normal");
+    //}
 
-    private void ShellMenuBarSettingsButton_PointerExited(object sender, PointerRoutedEventArgs e)
-    {
-        AnimatedIcon.SetState((UIElement)sender, "Normal");
-    }
+    //private void ShellMenuBarSettingsButton_PointerExited(object sender, PointerRoutedEventArgs e)
+    //{
+    //    AnimatedIcon.SetState((UIElement)sender, "Normal");
+    //}
 
     private async void AboutNavButton_Click(object sender, RoutedEventArgs e)
     {
@@ -113,19 +121,143 @@ public sealed partial class ShellPage : Page
         AboutDialog.Content = AboutPage;
         AboutDialog.PrimaryButtonText = "Close";
         AboutPage.Close += (s, e) => { AboutDialog.Hide(); };
-
-        //await MainApp.Instance.MainWindow.ShowDialogAsync(AboutDialog);
-
-
         AboutDialog.RequestedTheme = (ElementTheme)Application.Current.RequestedTheme;
         await AboutDialog.ShowAsync();
-
         AboutDialog.Content = null;
-        //foreach (NavButton button in MainApp.Instance.MainWindow.NavButtonList)
-        //{
-        //    button.ToggleButton.IsChecked = button == PageButtonReference[CurrentPage ?? DiscoverPage];
-        //}
-
         AboutDialog = null;
+    }
+
+    private void OnControlsSearchBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        if (args.ChosenSuggestion != null)
+        {
+            var hasChangedSelection = EnsureItemIsVisibleInNavigation((string)args.ChosenSuggestion);
+        }
+    }
+
+    public bool EnsureItemIsVisibleInNavigation(string name)
+    {
+        bool changedSelection = false;
+        foreach (object rawItem in NavigationView.MenuItems)
+        {
+            // Check if we encountered the separator
+            if (!(rawItem is NavigationViewItem))
+            {
+                // Skipping this item
+                continue;
+            }
+
+            var item = rawItem as NavigationViewItem;
+
+            // Check if we are this category
+            if ((string)item.Content == name)
+            {
+                NavigationView.SelectedItem = item;
+                ViewModel.NavigateToFromMenu((string)item.Tag);
+                changedSelection = true;
+            }
+            // We are not :/
+            else
+            {
+                // Maybe one of our items is?
+                if (item.MenuItems.Count != 0)
+                {
+                    foreach (NavigationViewItem child in item.MenuItems)
+                    {
+                        if ((string)child.Content == name)
+                        {
+                            // We are the item corresponding to the selected one, update selection!
+
+                            // Deal with differences in displaymodes
+                            if (NavigationView.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
+                            {
+                                // In Topmode, the child is not visible, so set parent as selected
+                                // Everything else does not work unfortunately
+                                NavigationView.SelectedItem = item;
+                                ViewModel.NavigateToFromMenu((string)item.Tag);
+                                item.StartBringIntoView();
+                            }
+                            else
+                            {
+                                // Expand so we animate
+                                item.IsExpanded = true;
+                                // Ensure parent is expanded so we actually show the selection indicator
+                                NavigationView.UpdateLayout();
+                                // Set selected item
+                                NavigationView.SelectedItem = child;
+                                ViewModel.NavigateToFromMenu((string)child.Tag);
+                                child.StartBringIntoView();
+                            }
+                            // Set to true to also skip out of outer for loop
+                            changedSelection = true;
+                            // Break out of child iteration for loop
+                            break;
+                        }
+                    }
+                }
+            }
+            // We updated selection, break here!
+            if (changedSelection)
+            {
+                break;
+            }
+        }
+        return changedSelection;
+    }
+
+    private void OnControlsSearchBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+        {
+            var suggestions = new List<string>();
+            var querySplit = sender.Text;
+
+
+            foreach (object rawItem in NavigationView.MenuItems)
+            {
+                // Check if we encountered the separator
+                if (!(rawItem is NavigationViewItem))
+                {
+                    // Skipping this item
+                    continue;
+                }
+
+                var item = rawItem as NavigationViewItem;
+
+                // Check if we are this category
+                if (((string)item.Content).StartsWith(querySplit))
+                {
+                    suggestions.Add((string)item.Content);
+                }
+                if (item.MenuItems.Count != 0)
+                {
+                    foreach (NavigationViewItem child in item.MenuItems)
+                    {
+
+                        if (((string)child.Content).StartsWith(querySplit))
+                        {
+                            suggestions.Add((string)child.Content);
+                        }
+                    }
+
+                }
+            }
+
+            if (suggestions.Count > 0)
+            {
+                controlsSearchBox.ItemsSource = suggestions.OrderByDescending(i => i);
+            }
+            else
+            {
+                controlsSearchBox.ItemsSource = new string[] { "No results found" };
+            }
+        }
+    }
+
+
+
+    private void CtrlF_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+    {
+        controlsSearchBox.Focus(FocusState.Programmatic);
     }
 }

@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
 using PlatyPdfs.App.Contracts.Services;
@@ -50,6 +51,11 @@ public partial class ShellViewModel : ObservableRecipient
         get;
     }
 
+    public ICommand ItemInvokedCommand
+    {
+        get;
+    }
+
     public INavigationService NavigationService
     {
         get;
@@ -67,6 +73,7 @@ public partial class ShellViewModel : ObservableRecipient
         MenuViewsContentGridCommand = new RelayCommand(OnMenuViewsContentGrid);
         MenuViewsDataGridCommand = new RelayCommand(OnMenuViewsDataGrid);
         MenuViewsMainCommand = new RelayCommand(OnMenuViewsMain);
+        ItemInvokedCommand = new RelayCommand<NavigationViewItemInvokedEventArgs>(OnItemInvoked);
     }
 
     private void OnNavigated(object sender, NavigationEventArgs e) => IsBackEnabled = NavigationService.CanGoBack;
@@ -84,4 +91,20 @@ public partial class ShellViewModel : ObservableRecipient
     private void OnMenuViewsDataGrid() => NavigationService.NavigateTo(typeof(DataGridViewModel).FullName!);
 
     private void OnMenuViewsMain() => NavigationService.NavigateTo(typeof(MainViewModel).FullName!);
+
+    private void OnItemInvoked(NavigationViewItemInvokedEventArgs args)
+    {
+        NavigateToFromMenu((string)args.InvokedItemContainer.Tag!);
+    }
+
+    public void NavigateToFromMenu(string menuText)
+    {
+        var type = menuText switch
+        {
+            "MainViewModel" => typeof(MainViewModel),
+            "PdfFilesDataViewModel" => typeof(PdfFilesDataViewModel),
+            _ => typeof(MainViewModel)
+        };
+        NavigationService.NavigateTo(type.FullName!);
+    }
 }
