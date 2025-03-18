@@ -117,13 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppDisplayName" xml:space="preserve">
-    <value>PlatyPdfs</value>
-  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>PlatyPdfs provides tools that perform various operations on a pdf document.</value>
   </data>
-  <data name="ShellMenuBarItem_File.Title" xml:space="preserve">
+  <data name="ShellMenuBarItem_File.Content" xml:space="preserve">
     <value>File</value>
   </data>
   <data name="ShellMenuBarItem_Views.Title" xml:space="preserve">
@@ -132,7 +129,7 @@
   <data name="ShellMenuItem_File_Exit.Text" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="ShellMenuItem_Views_Main.Text" xml:space="preserve">
+  <data name="ShellMenuItem_Views_Main.Content" xml:space="preserve">
     <value>Main</value>
   </data>
   <data name="Main_Title.Text" xml:space="preserve">
@@ -193,8 +190,8 @@
     <value>Settings</value>
     <comment>Page title for SettingsPage</comment>
   </data>
-  <data name="ShellMenuItem_Views_PdfFilesData.Text" xml:space="preserve">
-    <value>PdfFilesData</value>
+  <data name="ShellMenuItem_Views_MergePdfs.Content" xml:space="preserve">
+    <value>Merge Pdfs</value>
   </data>
   <data name="PdfFilesData_Title.Text" xml:space="preserve">
     <value>PdfFilesData</value>
@@ -221,7 +218,7 @@
   <data name="ShellMenuItem_Views_About.Text" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="ShellMenuBarItem_About.Title" xml:space="preserve">
+  <data name="ShellMenuBarItem_About.Content" xml:space="preserve">
     <value>About</value>
   </data>
   <data name="About_SelectorBarItem1.Text" xml:space="preserve">
@@ -238,5 +235,8 @@
   </data>
   <data name="AboutPages_Information_Disclaimer.Title" xml:space="preserve">
     <value>Disclaimer</value>
+  </data>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>PlatyPdfs</value>
   </data>
 </root>
