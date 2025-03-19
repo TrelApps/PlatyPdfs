@@ -127,6 +127,11 @@ public sealed partial class ShellPage : Page
         AboutDialog = null;
     }
 
+    private void LogButton_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.NavigateToFromMenu("LogViewModel");
+    }
+
     private void OnControlsSearchBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         if (args.ChosenSuggestion != null)

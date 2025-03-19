@@ -7,8 +7,10 @@ using Microsoft.Windows.AppNotifications;
 using PlatyPdfs.App.Activation;
 using PlatyPdfs.App.Contracts.Services;
 using PlatyPdfs.App.Core.Contracts.Services;
+using PlatyPdfs.App.Core.Logging;
 using PlatyPdfs.App.Core.Services;
 using PlatyPdfs.App.Models;
+using PlatyPdfs.App.Pages.LogPages;
 using PlatyPdfs.App.Services;
 using PlatyPdfs.App.ViewModels;
 using PlatyPdfs.App.Views;
@@ -91,6 +93,8 @@ public partial class App : Application
             services.AddTransient<MainPage>();
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
+            services.AddTransient<LogViewModel>();
+            services.AddTransient<LogPage>();
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
@@ -144,12 +148,12 @@ public partial class App : Application
             }
             else
             {
-                //Logger.Error("REDIRECTOR ACTIVATOR: args.Data was null when casted to ILaunchActivatedEventArgs");
+                Logger.Error("REDIRECTOR ACTIVATOR: args.Data was null when casted to ILaunchActivatedEventArgs");
             }
         }
         else
         {
-            //Logger.Warn("REDIRECTOR ACTIVATOR: args.Kind is not Launch but rather " + kind);
+            Logger.Warn("REDIRECTOR ACTIVATOR: args.Kind is not Launch but rather " + kind);
         }
 
         MainWindow.DispatcherQueue.TryEnqueue(MainWindow.Activate);
@@ -171,17 +175,17 @@ public partial class App : Application
             };
             AppNotificationManager.Default.Register();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //Logger.Error("Could not register notification event");
-            //Logger.Error(ex);
+            Logger.Error("Could not register notification event");
+            Logger.Error(ex);
         }
     }
 
 
     public void DisposeAndQuit(int outputCode = 0)
     {
-        //Logger.Warn("Quitting UniGetUI");
+        Logger.Warn("Quitting UniGetUI");
         //DWMThreadHelper.ChangeState_DWM(false);
         //DWMThreadHelper.ChangeState_XAML(false);
         MainWindow?.Close();

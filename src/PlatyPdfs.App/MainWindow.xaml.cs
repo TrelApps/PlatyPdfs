@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI.Windowing;
 using Microsoft.Windows.AppNotifications;
 using PlatyPdfs.App.Core.Enums;
+using PlatyPdfs.App.Core.Logging;
 using PlatyPdfs.App.Helpers;
 
 using Windows.UI.ViewManagement;
@@ -70,7 +71,7 @@ public sealed partial class MainWindow : WindowEx
                 $"args.Argument was not set to a value present in Enums.NotificationArguments (value is {action})");
         }
 
-        //Logger.Debug("Notification activated: " + args.Arguments);
+        Logger.Debug("Notification activated: " + args.Arguments);
     }
 
     /// <summary>

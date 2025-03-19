@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
+
 using PlatyPdfs.App.Contracts.Services;
 
 namespace PlatyPdfs.App.ViewModels;
@@ -67,12 +68,12 @@ public partial class ShellViewModel : ObservableRecipient
         NavigationService.Navigated += OnNavigated;
 
         MenuFileExitCommand = new RelayCommand(OnMenuFileExit);
-        MenuViewsPdfFilesDataCommand = new RelayCommand(OnMenuViewsPdfFilesData);
-        MenuSettingsCommand = new RelayCommand(OnMenuSettings);
-        MenuViewsListDetailsCommand = new RelayCommand(OnMenuViewsListDetails);
-        MenuViewsContentGridCommand = new RelayCommand(OnMenuViewsContentGrid);
-        MenuViewsDataGridCommand = new RelayCommand(OnMenuViewsDataGrid);
-        MenuViewsMainCommand = new RelayCommand(OnMenuViewsMain);
+        //MenuViewsPdfFilesDataCommand = new RelayCommand(OnMenuViewsPdfFilesData);
+        //MenuSettingsCommand = new RelayCommand(OnMenuSettings);
+        //MenuViewsListDetailsCommand = new RelayCommand(OnMenuViewsListDetails);
+        //MenuViewsContentGridCommand = new RelayCommand(OnMenuViewsContentGrid);
+        //MenuViewsDataGridCommand = new RelayCommand(OnMenuViewsDataGrid);
+        //MenuViewsMainCommand = new RelayCommand(OnMenuViewsMain);
         ItemInvokedCommand = new RelayCommand<NavigationViewItemInvokedEventArgs>(OnItemInvoked);
     }
 
@@ -80,17 +81,17 @@ public partial class ShellViewModel : ObservableRecipient
 
     private void OnMenuFileExit() => Application.Current.Exit();
 
-    private void OnMenuViewsPdfFilesData() => NavigationService.NavigateTo(typeof(PdfFilesDataViewModel).FullName!);
+    //private void OnMenuViewsPdfFilesData() => NavigationService.NavigateTo(typeof(PdfFilesDataViewModel).FullName!);
 
-    private void OnMenuSettings() => NavigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
+    //private void OnMenuSettings() => NavigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
 
-    private void OnMenuViewsListDetails() => NavigationService.NavigateTo(typeof(ListDetailsViewModel).FullName!);
+    //private void OnMenuViewsListDetails() => NavigationService.NavigateTo(typeof(ListDetailsViewModel).FullName!);
 
-    private void OnMenuViewsContentGrid() => NavigationService.NavigateTo(typeof(ContentGridViewModel).FullName!);
+    //private void OnMenuViewsContentGrid() => NavigationService.NavigateTo(typeof(ContentGridViewModel).FullName!);
 
-    private void OnMenuViewsDataGrid() => NavigationService.NavigateTo(typeof(DataGridViewModel).FullName!);
+    //private void OnMenuViewsDataGrid() => NavigationService.NavigateTo(typeof(DataGridViewModel).FullName!);
 
-    private void OnMenuViewsMain() => NavigationService.NavigateTo(typeof(MainViewModel).FullName!);
+    //private void OnMenuViewsMain() => NavigationService.NavigateTo(typeof(MainViewModel).FullName!);
 
     private void OnItemInvoked(NavigationViewItemInvokedEventArgs args)
     {
@@ -103,6 +104,7 @@ public partial class ShellViewModel : ObservableRecipient
         {
             "MainViewModel" => typeof(MainViewModel),
             "PdfFilesDataViewModel" => typeof(PdfFilesDataViewModel),
+            "LogViewModel" => typeof(LogViewModel),
             _ => typeof(MainViewModel)
         };
         NavigationService.NavigateTo(type.FullName!);

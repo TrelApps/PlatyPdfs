@@ -3,6 +3,7 @@
 using Microsoft.UI.Xaml.Controls;
 
 using PlatyPdfs.App.Contracts.Services;
+using PlatyPdfs.App.Pages.LogPages;
 using PlatyPdfs.App.ViewModels;
 using PlatyPdfs.App.Views;
 
@@ -21,6 +22,7 @@ public class PageService : IPageService
         Configure<ListDetailsViewModel, ListDetailsPage>();
         Configure<SettingsViewModel, SettingsPage>();
         Configure<PdfFilesDataViewModel, PdfFilesDataPage>();
+        Configure<LogViewModel, LogPage>();
     }
 
     public Type GetPageType(string key)
