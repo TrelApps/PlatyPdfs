@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		src\SharedAssemblyInfo.cs = src\SharedAssemblyInfo.cs
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalLibraries.Clipboard", "src\ExternalLibraries.Clipboard\ExternalLibraries.Clipboard.csproj", "{B1355087-FA27-6AB1-13C1-532CEECE8C40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|arm64 = Debug|arm64
@@ -52,6 +54,18 @@ Global
 		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Release|x64.Build.0 = Release|x64
 		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Release|x86.ActiveCfg = Release|x86
 		{FACCB76F-0CCA-74FB-A01E-EECA960C7EEB}.Release|x86.Build.0 = Release|x86
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Debug|arm64.ActiveCfg = Debug|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Debug|arm64.Build.0 = Debug|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Debug|x64.ActiveCfg = Debug|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Debug|x64.Build.0 = Debug|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Debug|x86.ActiveCfg = Debug|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Debug|x86.Build.0 = Debug|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Release|arm64.ActiveCfg = Release|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Release|arm64.Build.0 = Release|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Release|x64.ActiveCfg = Release|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Release|x64.Build.0 = Release|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Release|x86.ActiveCfg = Release|x64
+		{B1355087-FA27-6AB1-13C1-532CEECE8C40}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
