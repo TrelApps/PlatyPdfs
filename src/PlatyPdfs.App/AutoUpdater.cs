@@ -6,6 +6,7 @@ using Microsoft.Windows.AppNotifications;
 using Microsoft.Windows.AppNotifications.Builder;
 using PlatyPdfs.App.Core.Data;
 using PlatyPdfs.App.Core.Enums;
+using PlatyPdfs.App.Core.Logging;
 using PlatyPdfs.App.Core.Tools;
 
 namespace PlatyPdfs.App;
@@ -90,13 +91,13 @@ public class AutoUpdater
                 WasCheckingForUpdates = false;
                 InstallerDownloadUrl = InstallerDownloadUrl.Replace("$TAG", LatestVersion);
 
-                //Logger.Info($"An update to UniGetUI version {LatestVersion} is available");
+                Logger.Info($"An update to UniGetUI version {LatestVersion} is available");
                 string InstallerPath = Path.Join(CoreData.PlatyPdfsDataDirectory, "PlatyPdfs Updater.exe");
 
                 if (File.Exists(InstallerPath)
                     && await CheckInstallerHash(InstallerPath, InstallerHash))
                 {
-                    //Logger.Info($"A cached valid installer was found, launching update process...");
+                    Logger.Info($"A cached valid installer was found, launching update process...");
                     return await PrepairToLaunchInstaller(InstallerPath, LatestVersion, AutoLaunch, ManualCheck);
                 }
 
@@ -143,8 +144,8 @@ public class AutoUpdater
         }
         catch (Exception e)
         {
-            //Logger.Error("An error occurred while checking for updates: ");
-            //Logger.Error(e);
+            Logger.Error("An error occurred while checking for updates: ");
+            Logger.Error(e);
             // We don't want an error popping if updates can't
             if (Verbose || !WasCheckingForUpdates) ShowMessage_ThreadSafe(
                 String.Format("An error occurred when checking for updates: "),
@@ -164,7 +165,7 @@ public class AutoUpdater
     /// </summary>
     private static async Task<(bool, string, string)> CheckForUpdates(string endpoint)
     {
-        //Logger.Debug($"Begin check for updates on endpoint {endpoint}");
+        Logger.Debug($"Begin check for updates on endpoint {endpoint}");
         string[] UpdateResponse;
         using (HttpClient client = new(CoreData.GenericHttpClientParameters))
         {
@@ -179,11 +180,11 @@ public class AutoUpdater
             int LatestVersion = int.Parse(UpdateResponse[0].Replace("\n", "").Replace("\r", "").Trim());
             string InstallerHash = UpdateResponse[1].Replace("\n", "").Replace("\r", "").Trim();
             string VersionName = UpdateResponse[2].Replace("\n", "").Replace("\r", "").Trim();
-            //Logger.Debug($"Got response from endpoint: ({LatestVersion}, {VersionName}, {InstallerHash})");
+            Logger.Debug($"Got response from endpoint: ({LatestVersion}, {VersionName}, {InstallerHash})");
             return (LatestVersion > CoreData.BuildNumber, VersionName, InstallerHash);
         }
 
-        //Logger.Warn($"Received update string is {UpdateResponse[0]}");
+        Logger.Warn($"Received update string is {UpdateResponse[0]}");
         throw new FormatException("The updates file does not follow the FloatVersion////Sha256Hash////VersionName format");
     }
 
@@ -192,15 +193,15 @@ public class AutoUpdater
     /// </summary>
     private static async Task<bool> CheckInstallerHash(string installerLocation, string expectedHash)
     {
-        //Logger.Debug($"Checking updater hash on location {installerLocation}");
+        Logger.Debug($"Checking updater hash on location {installerLocation}");
         using FileStream stream = File.OpenRead(installerLocation);
         string hash = Convert.ToHexString(await SHA256.Create().ComputeHashAsync(stream)).ToLower();
         if (hash == expectedHash.ToLower())
         {
-            //Logger.Debug($"The hashes match ({hash})");
+            Logger.Debug($"The hashes match ({hash})");
             return true;
         }
-        //Logger.Warn($"Hash mismatch.\nExpected: {expectedHash}\nGot:      {hash}");
+        Logger.Warn($"Hash mismatch.\nExpected: {expectedHash}\nGot:      {hash}");
         return false;
     }
 
@@ -209,7 +210,7 @@ public class AutoUpdater
     /// </summary>
     private static async Task DownloadInstaller(string downloadUrl, string installerLocation)
     {
-        //Logger.Debug($"Downloading installer from {downloadUrl} to {installerLocation}");
+        Logger.Debug($"Downloading installer from {downloadUrl} to {installerLocation}");
         using HttpClient client = new(CoreData.GenericHttpClientParameters);
         client.Timeout = TimeSpan.FromSeconds(600);
         client.DefaultRequestHeaders.UserAgent.ParseAdd(CoreData.UserAgentString);
@@ -217,7 +218,7 @@ public class AutoUpdater
         result.EnsureSuccessStatusCode();
         using FileStream fs = new(installerLocation, FileMode.OpenOrCreate);
         await result.Content.CopyToAsync(fs);
-        //Logger.Debug("The download has finished successfully");
+        Logger.Debug("The download has finished successfully");
     }
 
     /// <summary>
@@ -225,7 +226,7 @@ public class AutoUpdater
     /// </summary>
     private static async Task<bool> PrepairToLaunchInstaller(string installerLocation, string NewVersion, bool AutoLaunch, bool ManualCheck)
     {
-        //Logger.Debug("Starting the process to launch the installer.");
+        Logger.Debug("Starting the process to launch the installer.");
         UpdateReadyToBeInstalled = true;
         ReleaseLockForAutoupdate_Window = false;
         ReleaseLockForAutoupdate_Notification = false;
@@ -269,11 +270,11 @@ public class AutoUpdater
 
         if (AutoLaunch && !Window.Visible)
         {
-            //Logger.Debug("AutoLaunch is enabled and the Window is hidden, launching installer...");
+            Logger.Debug("AutoLaunch is enabled and the Window is hidden, launching installer...");
         }
         else
         {
-            //Logger.Debug("Waiting for mainWindow to be closed or for user to trigger the update from the notification...");
+            Logger.Debug("Waiting for mainWindow to be closed or for user to trigger the update from the notification...");
             while (
                 !ReleaseLockForAutoupdate_Window &&
                 !ReleaseLockForAutoupdate_Notification &&
@@ -281,7 +282,7 @@ public class AutoUpdater
             {
                 await Task.Delay(100);
             }
-            //Logger.Debug("Autoupdater lock released, launching installer...");
+            Logger.Debug("Autoupdater lock released, launching installer...");
         }
 
         //if (!ManualCheck && Settings.Get("DisableAutoUpdateWingetUI"))
@@ -299,7 +300,7 @@ public class AutoUpdater
     /// </summary>
     private static async Task LaunchInstallerAndQuit(string installerLocation)
     {
-        //Logger.Debug("Launching the updater...");
+        Logger.Debug("Launching the updater...");
         using Process p = new()
         {
             StartInfo = new()
@@ -344,9 +345,9 @@ public class AutoUpdater
             Banner.ActionButton = ActionButton;
             Banner.IsOpen = true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //Logger.Error(ex);
+            Logger.Error(ex);
         }
 
     }

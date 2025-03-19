@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Dispatching;
 using Microsoft.Windows.AppLifecycle;
+using PlatyPdfs.App.Core.Logging;
 
 namespace PlatyPdfs.App;
 
@@ -78,9 +79,9 @@ public static class EntryPoint
             }
             return isRedirect;
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            //Logger.Warn(e);
+            Logger.Warn(e);
             return false;
         }
     }
