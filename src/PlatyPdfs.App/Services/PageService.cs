@@ -1,11 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
 using Microsoft.UI.Xaml.Controls;
-
 using PlatyPdfs.App.Contracts.Services;
-using PlatyPdfs.App.Pages.LogPages;
+using PlatyPdfs.App.Pages;
 using PlatyPdfs.App.ViewModels;
-using PlatyPdfs.App.Views;
 
 namespace PlatyPdfs.App.Services;
 
@@ -16,12 +13,8 @@ public class PageService : IPageService
     public PageService()
     {
         Configure<MainViewModel, MainPage>();
-        Configure<DataGridViewModel, DataGridPage>();
-        Configure<ContentGridViewModel, ContentGridPage>();
-        Configure<ContentGridDetailViewModel, ContentGridDetailPage>();
-        Configure<ListDetailsViewModel, ListDetailsPage>();
         Configure<SettingsViewModel, SettingsPage>();
-        Configure<PdfFilesDataViewModel, PdfFilesDataPage>();
+        Configure<MergePdfsViewModel, MergePdfsPage>();
         Configure<LogViewModel, LogPage>();
     }
 

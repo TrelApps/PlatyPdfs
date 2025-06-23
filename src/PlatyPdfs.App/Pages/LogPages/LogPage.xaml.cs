@@ -5,7 +5,6 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Media;
 using PlatyPdfs.App.Core.Logging;
-using PlatyPdfs.App.Pages.Interfaces;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI;
@@ -14,7 +13,7 @@ using Windows.UI;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace PlatyPdfs.App.Pages.LogPages;
+namespace PlatyPdfs.App.Pages;
 
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.

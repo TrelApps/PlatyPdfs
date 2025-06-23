@@ -4,8 +4,8 @@ namespace PlatyPdfs.App.Core.Data;
 
 public static class CoreData
 {
-    public const string VersionName = "0.0.0.4"; // Do not modify this line, use file scripts/apply_versions.py
-    public const int BuildNumber = 37; // Do not modify this line, use file scripts/apply_versions.py
+    public const string VersionName = "0.0.0.5"; // Do not modify this line, use file scripts/apply_versions.py
+    public const int BuildNumber = 40; // Do not modify this line, use file scripts/apply_versions.py
     public const string UserAgentString = $"PlatyPdfs/{VersionName} (https://trelapps.com; tremorscript@gmail.com)";
 
     private static bool? IS_PORTABLE;

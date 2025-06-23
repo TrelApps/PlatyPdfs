@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +12,7 @@ public class PdfFileService : IPdfFileService
 
     public IEnumerable<PdfFile> AllPdfs()
     {
-
         return Enumerable.Empty<PdfFile>();
-
     }
 
     public async Task<IEnumerable<PdfFile>> GetGridDataAsync()
@@ -26,4 +23,3 @@ public class PdfFileService : IPdfFileService
         return _allpdfs;
     }
 }
-
