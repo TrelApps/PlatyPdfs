@@ -10,6 +10,8 @@
                 <ResourceDictionary Source="/Styles/Thickness.xaml" />
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <x:String x:Key="AppTitleName">PlatyPdfs</x:String>
+            <x:Double x:Key="Breakpoint640Plus">641</x:Double>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,4 +1,4 @@
-﻿namespace PlatyPdfs.App.Pages.Interfaces;
+﻿namespace PlatyPdfs.App.Pages;
 
 /// <summary>
 /// Any object that can perform any of the following listed actions should

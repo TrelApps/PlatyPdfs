@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Media.Animation;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace PlatyPdfs.App.Pages.AboutPages;
+namespace PlatyPdfs.App.Pages;
 
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.
@@ -26,7 +26,6 @@ public sealed partial class AboutPlatyPdfs : Page
         Type pageType = currentSelectedIndex switch
         {
             0 => typeof(AboutInformation),
-            1 => typeof(ThirdPartyLicenses),
             _ => typeof(ThirdPartyLicenses),
         };
         SlideNavigationTransitionEffect slideNavigationTransitionEffect = currentSelectedIndex - previousSelectedIndex > 0 ? SlideNavigationTransitionEffect.FromRight : SlideNavigationTransitionEffect.FromLeft;

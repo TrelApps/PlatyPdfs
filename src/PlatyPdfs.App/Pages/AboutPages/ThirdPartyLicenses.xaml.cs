@@ -5,7 +5,7 @@ using PlatyPdfs.App.Core.Data;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace PlatyPdfs.App.Pages.AboutPages;
+namespace PlatyPdfs.App.Pages;
 
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.
@@ -41,7 +41,6 @@ public sealed partial class ThirdPartyLicenses : Page
                 License = LicenseData.LicenseNames[license],
                 LicenseURL = LicenseData.LicenseURLs[license],
                 HomepageUrl = LicenseData.HomepageUrls[license],
-                // TODO: convert to localized string
                 HomepageText = String.Format("{0} homepage", license)
             });
         }

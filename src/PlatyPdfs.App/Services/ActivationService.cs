@@ -3,7 +3,7 @@ using Microsoft.UI.Xaml.Controls;
 
 using PlatyPdfs.App.Activation;
 using PlatyPdfs.App.Contracts.Services;
-using PlatyPdfs.App.Views;
+using PlatyPdfs.App.Pages;
 
 namespace PlatyPdfs.App.Services;
 
@@ -14,7 +14,9 @@ public class ActivationService : IActivationService
     private readonly IThemeSelectorService _themeSelectorService;
     private UIElement? _shell = null;
 
-    public ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService)
+    public ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler,
+        IEnumerable<IActivationHandler> activationHandlers,
+        IThemeSelectorService themeSelectorService)
     {
         _defaultHandler = defaultHandler;
         _activationHandlers = activationHandlers;

@@ -193,9 +193,8 @@
   <data name="ShellMenuItem_Views_MergePdfs.Content" xml:space="preserve">
     <value>Merge Pdfs</value>
   </data>
-  <data name="PdfFilesData_Title.Text" xml:space="preserve">
-    <value>PdfFilesData</value>
-    <comment>Page title for PdfFilesDataPage</comment>
+  <data name="MergePdfFilesTitle.Text" xml:space="preserve">
+    <value>Merge Pdfs</value>
   </data>
   <data name="KiloByteSymbol" xml:space="preserve">
     <value>KB</value>

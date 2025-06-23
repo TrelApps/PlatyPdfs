@@ -1,4 +1,4 @@
-﻿namespace PlatyPdfs.App.Pages.Interfaces;
+﻿namespace PlatyPdfs.App.Pages;
 
 public interface IEnterLeaveListener
 {

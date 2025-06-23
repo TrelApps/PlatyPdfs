@@ -10,10 +10,9 @@ using PlatyPdfs.App.Core.Contracts.Services;
 using PlatyPdfs.App.Core.Logging;
 using PlatyPdfs.App.Core.Services;
 using PlatyPdfs.App.Models;
-using PlatyPdfs.App.Pages.LogPages;
+using PlatyPdfs.App.Pages;
 using PlatyPdfs.App.Services;
 using PlatyPdfs.App.ViewModels;
-using PlatyPdfs.App.Views;
 using Windows.ApplicationModel.Activation;
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 
@@ -77,18 +76,10 @@ public partial class App : Application
             services.AddSingleton<IPdfFileService, PdfFileService>();
 
             // Views and ViewModels
-            services.AddTransient<PdfFilesDataViewModel>();
-            services.AddTransient<PdfFilesDataPage>();
+            services.AddTransient<MergePdfsViewModel>();
+            services.AddTransient<MergePdfsPage>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
-            services.AddTransient<ListDetailsViewModel>();
-            services.AddTransient<ListDetailsPage>();
-            services.AddTransient<ContentGridDetailViewModel>();
-            services.AddTransient<ContentGridDetailPage>();
-            services.AddTransient<ContentGridViewModel>();
-            services.AddTransient<ContentGridPage>();
-            services.AddTransient<DataGridViewModel>();
-            services.AddTransient<DataGridPage>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();
             services.AddTransient<ShellPage>();

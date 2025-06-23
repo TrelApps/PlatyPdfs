@@ -34,11 +34,11 @@ rmdir /Q /S platypdfs_bin
 
 mkdir platypdfs_bin
 REM robocopy src\PlatyPdfs.App\bin\Release\net9.0-windows10.0.19041.0\win-x64\publish\ platypdfs_bin *.* /MOVE /E
-robocopy src\PlatyPdfs.App\bin\x64\Release\net9.0-windows10.0.19041.0\win-x64 platypdfs_bin *.* /MOVE /E
+robocopy src\PlatyPdfs.App\bin\x64\Release\net9.0-windows10.0.22621.0\win-x64 platypdfs_bin *.* /MOVE /E
 
 set /p signfiles="Do you want to sign the files? [Y/n]: "
 if /i "%signfiles%" neq "n" (
-    %signcommand% "platypdfs_bin/PlatyPdfs.exe" "platypdfs_bin/PlatyPdfs.dll" "platypdfs_bin/PlatyPdfs.*.dll"
+    %signcommand% "platypdfs_bin/PlatyPdfs.exe" "platypdfs_bin/PlatyPdfs.dll" "platypdfs_bin/PlatyPdfs.*.dll" "platypdfs_bin/ExternalLibraries.*.dll"
     if %errorlevel% neq 0 (
         echo "Signing has failed!"
         pause

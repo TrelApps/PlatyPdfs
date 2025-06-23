@@ -81,18 +81,6 @@ public partial class ShellViewModel : ObservableRecipient
 
     private void OnMenuFileExit() => Application.Current.Exit();
 
-    //private void OnMenuViewsPdfFilesData() => NavigationService.NavigateTo(typeof(PdfFilesDataViewModel).FullName!);
-
-    //private void OnMenuSettings() => NavigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
-
-    //private void OnMenuViewsListDetails() => NavigationService.NavigateTo(typeof(ListDetailsViewModel).FullName!);
-
-    //private void OnMenuViewsContentGrid() => NavigationService.NavigateTo(typeof(ContentGridViewModel).FullName!);
-
-    //private void OnMenuViewsDataGrid() => NavigationService.NavigateTo(typeof(DataGridViewModel).FullName!);
-
-    //private void OnMenuViewsMain() => NavigationService.NavigateTo(typeof(MainViewModel).FullName!);
-
     private void OnItemInvoked(NavigationViewItemInvokedEventArgs args)
     {
         NavigateToFromMenu((string)args.InvokedItemContainer.Tag!);
@@ -103,8 +91,9 @@ public partial class ShellViewModel : ObservableRecipient
         var type = menuText switch
         {
             "MainViewModel" => typeof(MainViewModel),
-            "PdfFilesDataViewModel" => typeof(PdfFilesDataViewModel),
+            "PdfFilesDataViewModel" => typeof(MergePdfsViewModel),
             "LogViewModel" => typeof(LogViewModel),
+            "Settings" => typeof(SettingsViewModel),
             _ => typeof(MainViewModel)
         };
         NavigationService.NavigateTo(type.FullName!);
